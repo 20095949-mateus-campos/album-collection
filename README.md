@@ -72,7 +72,58 @@ Following the plan established in the previous section, a prototype was develope
 The below is a breakdown of the project’s file structure:
 
 ```
-
+.
+├── assets
+│   ├── icon-background.png
+│   ├── icon-foreground.png
+│   ├── icon-only.png
+│   ├── splash-dark.png
+│   └── splash.png
+├── global.css
+├── index.html
+├── public
+│   ├── favicon.png
+│   ├── manifest.json
+│   └── menu_logo.png
+├── README.md
+├── screenshots
+│   ├── about.jpeg
+│   ├── account-details.jpeg
+│   ├── album-details.jpeg
+│   ├── authentication.jpeg
+│   ├── collection.jpeg
+│   ├── flowchart.png
+│   ├── menu.jpeg
+│   ├── search-form.jpeg
+│   └── search-results.jpeg
+└── src
+    ├── App.tsx
+    ├── components
+    │   ├── About.css
+    │   ├── About.tsx
+    │   ├── AlbumDetails.css
+    │   ├── AlbumDetails.tsx
+    │   ├── AlbumList.css
+    │   ├── AlbumList.tsx
+    │   ├── Menu.css
+    │   ├── Menu.tsx
+    │   ├── SearchForm.css
+    │   ├── SearchForm.tsx
+    │   ├── SignIn.css
+    │   ├── SignIn.tsx
+    │   ├── UserDetails.css
+    │   └── UserDetails.tsx
+    ├── main.tsx
+    ├── models
+    │   ├── Album.ts
+    │   ├── Track.ts
+    │   └── User.ts
+    ├── pages
+    │   ├── Page.css
+    │   └── Page.tsx
+    └── services
+        ├── discogs.ts
+        └── firebase.ts
 ```
 The following are some screenshots of the application in use, showcasing core operations and native functionalities:
 
