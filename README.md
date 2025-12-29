@@ -76,21 +76,21 @@ The below is a breakdown of the project’s file structure:
 ```
 The following are some screenshots of the application in use, showcasing core operations and native functionalities:
 
-| ![authentication.png](screenshots/authentication.png) | ![collection.png](screenshots/collection.png) |
+| ![authentication.jpeg](screenshots/authentication.jpeg) | ![collection.jpeg](screenshots/collection.jpeg) |
 | :-: | :-: |
 | *Authentication* | *Collection* |
 
-| ![album-details.png](screenshots/album-details.png) | ![search-form.png](screenshots/search-form.png) |
+| ![album-details.jpeg](screenshots/album-details.jpeg) | ![search-form.jpeg](screenshots/search-form.jpeg) |
 | :-: | :-: |
 | *Album details* | *Search form* |
 
-| ![search-results.png](screenshots/search-results.png) | ![account-details.png](screenshots/account-details.png) |
+| ![search-results.jpeg](screenshots/search-results.jpeg) | ![account-details.jpeg](screenshots/account-details.jpeg) |
 | :-: | :-: |
 | *Search results* | *Account details* |
 
-| ![about.png](screenshots/about.png) |
-| :-: |
-| *About* |
+| ![about.jpeg](screenshots/about.jpeg) | ![menu.jpeg](screenshots/menu.jpeg) |
+| :-: | :-: |
+| *About* | *Menu* |
 
 ## Part 5: Technology Stack and External Resources
 
