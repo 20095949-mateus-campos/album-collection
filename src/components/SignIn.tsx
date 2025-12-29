@@ -1,32 +1,17 @@
 import {
   IonButton,
-    IonCard,
-    IonCardContent,
-    IonCardHeader,
-    IonCardSubtitle,
-    IonCardTitle,
-    IonCol,
+  IonCard,
+  IonCardHeader,
+  IonCardSubtitle,
+  IonCardTitle,
   IonContent,
-  IonGrid,
-  IonIcon,
-  IonImg,
   IonInput,
   IonItem,
-  IonLabel,
   IonList,
-  IonListHeader,
-  IonMenu,
-  IonMenuToggle,
-  IonNote,
-  IonRow,
-  IonSearchbar,
-  IonText,
   useIonAlert,
   useIonRouter,
 } from '@ionic/react';
 
-import { Route, useLocation } from 'react-router-dom';
-import { musicalNotesOutline, musicalNotesSharp, personOutline, personSharp, searchOutline, searchSharp } from 'ionicons/icons';
 import './Menu'
 import { app, db } from '../services/firebase'
 import { Album } from '../models/Album';
@@ -34,7 +19,6 @@ import { user } from '../App';
 import { useRef } from 'react';
 
 interface ChildProps {
-  // We define a function that expects a string
   onMessage?: (album: Album) => void;
   album?: Album,
   setLoggedIn?: (state: boolean | null) => void
@@ -44,7 +28,6 @@ const SignIn: React.FC<ChildProps> = ({setLoggedIn}) => {
   const usernameRef = useRef<HTMLIonInputElement>(null);
   const emailRef = useRef<HTMLIonInputElement>(null);
   const passwordRef = useRef<HTMLIonInputElement>(null);
-
   const router = useIonRouter()
   const [alert] = useIonAlert()
 
@@ -76,7 +59,6 @@ const SignIn: React.FC<ChildProps> = ({setLoggedIn}) => {
   };
 
   const signIn = async () => {
-    const username = usernameRef.current?.value as string
     const email = emailRef.current?.value as string
     const password = passwordRef.current?.value as string
 
@@ -104,34 +86,34 @@ const SignIn: React.FC<ChildProps> = ({setLoggedIn}) => {
   };
 
   return (
-            <IonContent>
-              <IonCard>
-                <IonCardHeader>
-                  <IonCardTitle>Sign In</IonCardTitle>
-                  <IonCardSubtitle>If you don't already have an account, sign up instead.</IonCardSubtitle>
-                </IonCardHeader>
-              </IonCard>
-              <IonCard>
-              <IonList>
-                <IonItem>
-                  <IonInput ref={usernameRef} id='username' name='username' label="Username" placeholder="username"></IonInput>
-                </IonItem>
-      
-                <IonItem>
-                  <IonInput ref={emailRef} id='email' name='email' label="Email" type="email" placeholder="example@email.com"></IonInput>
-                </IonItem>
-      
-                <IonItem>
-                  <IonInput ref={passwordRef} id='password' name='password' label="Password" type="password" placeholder="******"></IonInput>
-                </IonItem>
-      
-                <IonItem>
-                  <IonButton type='button' onClick={() => signIn()}>Sign In</IonButton>
-                  <IonButton type='button' onClick={() => signUp()}>Sign Up</IonButton>
-                </IonItem>
-              </IonList>
-              </IonCard>
-            </IonContent>
+    <IonContent>
+      <IonCard>
+        <IonCardHeader>
+          <IonCardTitle>Sign In</IonCardTitle>
+          <IonCardSubtitle>If you don't already have an account, sign up instead.</IonCardSubtitle>
+        </IonCardHeader>
+      </IonCard>
+      <IonCard>
+      <IonList>
+        <IonItem>
+          <IonInput ref={usernameRef} id='username' name='username' label="Username" placeholder="username"></IonInput>
+        </IonItem>
+
+        <IonItem>
+          <IonInput ref={emailRef} id='email' name='email' label="Email" type="email" placeholder="example@email.com"></IonInput>
+        </IonItem>
+
+        <IonItem>
+          <IonInput ref={passwordRef} id='password' name='password' label="Password" type="password" placeholder="******"></IonInput>
+        </IonItem>
+
+        <IonItem>
+          <IonButton type='button' onClick={() => signIn()}>Sign In</IonButton>
+          <IonButton type='button' onClick={() => signUp()}>Sign Up</IonButton>
+        </IonItem>
+      </IonList>
+      </IonCard>
+    </IonContent>
   );
 };
 

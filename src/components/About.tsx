@@ -1,5 +1,4 @@
 import {
-  IonButton,
   IonCard,
   IonCardContent,
   IonCardHeader,
@@ -7,10 +6,6 @@ import {
   IonCol,
   IonContent,
   IonGrid,
-  IonImg,
-  IonInput,
-  IonItem,
-  IonList,
   IonRow,
 } from '@ionic/react';
 
@@ -19,8 +14,6 @@ import { Browser } from '@capacitor/browser';
 import { discogs } from '../services/discogs';
 
 const About: React.FC = () => {
-  
-
   return (
     <IonContent>
       <IonGrid>

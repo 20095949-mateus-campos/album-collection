@@ -1,23 +1,11 @@
 import {
-  IonBackButton,
-    IonButton,
-    IonCard,
-    IonCardContent,
-    IonCardHeader,
-    IonCardSubtitle,
-    IonCardTitle,
-    IonCol,
+  IonButton,
+  IonCard,
+  IonCardContent,
+  IonCol,
   IonContent,
   IonGrid,
-  IonIcon,
   IonImg,
-  IonItem,
-  IonLabel,
-  IonList,
-  IonListHeader,
-  IonMenu,
-  IonMenuToggle,
-  IonNote,
   IonRefresher,
   IonRefresherContent,
   IonRow,
@@ -27,8 +15,7 @@ import {
   useIonRouter,
 } from '@ionic/react';
 
-import { useLocation, useParams } from 'react-router-dom';
-import { musicalNotesOutline, musicalNotesSharp, personOutline, personSharp, searchOutline, searchSharp } from 'ionicons/icons';
+import { useLocation } from 'react-router-dom';
 import './Menu.css';
 import { useState } from 'react';
 import { currentAlbum, user } from '../App';
@@ -36,22 +23,15 @@ import { Album } from '../models/Album';
 import { db } from '../services/firebase';
 
 interface ChildProps {
-  // We define a function that expects a string
   onMessage?: (album: Album) => void;
   albums?: Album[],
   unmountMe?: () => void
 }
 
 const AlbumList: React.FC<ChildProps> = ({onMessage, albums, unmountMe}) => {
-
   const location = useLocation();
-
-  // albums = user.collection
-
   const [display, setDisplay] = useState(albums)
-
-
-  
+  const router = useIonRouter();
 
   function filterInput(event: Event) {
     const input = (event.target as HTMLIonSearchbarElement).value?.toLowerCase()
@@ -62,8 +42,6 @@ const AlbumList: React.FC<ChildProps> = ({onMessage, albums, unmountMe}) => {
       )
     }))
   }
-
-  const router = useIonRouter();
 
   async function handleRefresh(event: RefresherCustomEvent) {
     await db.collection("users").doc(user.id).get()
@@ -77,71 +55,64 @@ const AlbumList: React.FC<ChildProps> = ({onMessage, albums, unmountMe}) => {
       })
   }
 
-  
-
   return (
-      <IonContent>
-        {location.pathname.startsWith('/collection') ? (
-          <IonRefresher slot="fixed" onIonRefresh={handleRefresh}>
-            <IonRefresherContent></IonRefresherContent>
-          </IonRefresher>
-        ) : (
-          null
-        )}
+    <IonContent>
+      {location.pathname.startsWith('/collection') ? (
+        <IonRefresher slot="fixed" onIonRefresh={handleRefresh}>
+          <IonRefresherContent></IonRefresherContent>
+        </IonRefresher>
+      ) : (
+        null
+      )}
 
-        <IonGrid fixed={true}>
-            <IonRow>
-              <IonCol>
-                <IonSearchbar placeholder='Filter' onIonInput={(event) => filterInput(event)}></IonSearchbar>
-              </IonCol>
-            </IonRow>
-            {display && display?.length > 0 ? (
-              <>
-                <IonRow>
-                  {display.map(album => (
-                      <IonCol key={album.id} sizeLg='3' sizeMd='3' sizeSm='6' sizeXs='6'>
-                          <IonCard routerDirection='none' routerLink={`${location.pathname}/album/${album.id}`} onClick={(e: React.MouseEvent) => {
-                            // e.preventDefault()
-                            // routerLink={`${location.pathname}/album/${album.id}`}
-                            // e.stopPropagation()
-                            
-                            onMessage!(album)
-                            Object.assign(currentAlbum, album)
-                            // router.push(`${location.pathname}/album/${album.id}`)
-                            }}>
-                              <IonImg src={album.coverUrl}></IonImg>
-                          </IonCard>
-                      </IonCol>
-                  ))}
-                </IonRow>
-                <IonRow>
-                  <IonCol>
-                    <IonCard>
-                      <IonCardContent className='ion-text-end'>
-                        Data provided by Discogs.
-                      </IonCardContent>
-                      </IonCard>
-                  </IonCol>
-                </IonRow>
-              </>
-            ) : (
-              location.pathname == '/collection' ? (
-                <IonButton onClick={() => router.push('/search', 'root')}>Add an album</IonButton>
-              ) : (
-                <IonText>Your search did not return any results. Try again with different search terms.</IonText>
-              )
-            )}
-            <IonRow>
-              {location.pathname == '/search' ? (
+      <IonGrid fixed={true}>
+          <IonRow>
+            <IonCol>
+              <IonSearchbar placeholder='Filter' onIonInput={(event) => filterInput(event)}></IonSearchbar>
+            </IonCol>
+          </IonRow>
+          {display && display?.length > 0 ? (
+            <>
+              <IonRow>
+                {display.map(album => (
+                    <IonCol key={album.id} sizeLg='3' sizeMd='3' sizeSm='6' sizeXs='6'>
+                        <IonCard routerDirection='none' routerLink={`${location.pathname}/album/${album.id}`} onClick={() => {
+                          onMessage!(album)
+                          Object.assign(currentAlbum, album)
+                          }}>
+                            <IonImg src={album.coverUrl}></IonImg>
+                        </IonCard>
+                    </IonCol>
+                ))}
+              </IonRow>
+              <IonRow>
                 <IonCol>
-                  <IonButton onClick={() => unmountMe!()}>Back to form</IonButton>
+                  <IonCard>
+                    <IonCardContent className='ion-text-end'>
+                      Data provided by Discogs.
+                    </IonCardContent>
+                    </IonCard>
                 </IonCol>
-              ) : (
-                null
-              )}
-            </IonRow>
-        </IonGrid>
-      </IonContent>
+              </IonRow>
+            </>
+          ) : (
+            location.pathname == '/collection' ? (
+              <IonButton onClick={() => router.push('/search', 'root')}>Add an album</IonButton>
+            ) : (
+              <IonText>Your search did not return any results. Try again with different search terms.</IonText>
+            )
+          )}
+          <IonRow>
+            {location.pathname == '/search' ? (
+              <IonCol>
+                <IonButton onClick={() => unmountMe!()}>Back to form</IonButton>
+              </IonCol>
+            ) : (
+              null
+            )}
+          </IonRow>
+      </IonGrid>
+    </IonContent>
   );
 };
 

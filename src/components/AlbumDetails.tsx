@@ -1,55 +1,34 @@
 import { Browser } from '@capacitor/browser';
 import {
   IonButton,
-    IonCard,
-    IonCardContent,
-    IonCardHeader,
-    IonCardSubtitle,
-    IonCardTitle,
-    IonCol,
+  IonCard,
+  IonCardContent,
+  IonCol,
   IonContent,
   IonGrid,
-  IonIcon,
   IonImg,
   IonItem,
-  IonLabel,
   IonList,
-  IonListHeader,
-  IonMenu,
-  IonMenuToggle,
-  IonNote,
   IonRow,
-  IonSearchbar,
   IonToast,
-  useIonViewDidEnter,
-  useIonViewWillEnter,
 } from '@ionic/react';
 
 import { useLocation } from 'react-router-dom';
-import { contractOutline, diceSharp, musicalNotesOutline, musicalNotesSharp, personOutline, personSharp, searchOutline, searchSharp } from 'ionicons/icons';
 import './Menu.css';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { currentAlbum, user } from '../App';
-import { useFormState } from 'react-dom';
 import { Album } from '../models/Album';
-import { Track } from '../models/Track';
 import { app, db } from '../services/firebase';
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
 import "firebase/compat/auth";
 
 interface Props {
   album?: Album
 }
 
-const AlbumDetails: React.FC<Props> = ({ album }) => {
-  const location = useLocation();
-
-  // const [display, setDisplay] = useState(album)
+const AlbumDetails: React.FC<Props> = () => {
   const [inlib, setInLib] = useState(user.collection.filter(album => album.id == currentAlbum?.id).length != 0)
-
-  // useIonViewWillEnter(() => setDisplay(currentAlbum))
 
   async function addAlbum() {
     user.collection.push(currentAlbum)
@@ -68,73 +47,73 @@ const AlbumDetails: React.FC<Props> = ({ album }) => {
   }
 
   return (
-      <IonContent>
-        <IonGrid fixed={true}>
-            <IonRow>
-              <IonCol sizeLg='6' sizeMd='6' sizeSm='12' sizeXs='12'>
+    <IonContent>
+      <IonGrid fixed={true}>
+          <IonRow>
+            <IonCol sizeLg='6' sizeMd='6' sizeSm='12' sizeXs='12'>
+              <IonCard>
+                <IonImg src={currentAlbum?.coverUrl}></IonImg>
+              </IonCard>
+            </IonCol>
+            <IonCol sizeLg='6' sizeMd='6' sizeSm='12' sizeXs='12'>
+              <IonCard>
+                <IonList>
+                <IonItem>Title: {currentAlbum?.title}</IonItem>
+                <IonItem>Artist: {currentAlbum?.artist}</IonItem>
+                <IonItem>Year: {currentAlbum?.year}</IonItem>
+                {currentAlbum?.genre ? <IonItem>Genre: {currentAlbum?.genre.join(', ')}</IonItem>: null}
+                <IonItem>Country: {currentAlbum?.country}</IonItem>
+              </IonList>
+              </IonCard>
+            </IonCol>
+          </IonRow>
+          <IonRow>
+              <IonCol size='12'>
                 <IonCard>
-                  <IonImg src={currentAlbum?.coverUrl}></IonImg>
+                  {currentAlbum?.tracklist ? <IonList>
+                    <IonItem key={-1}>
+                      <IonGrid>
+                        <IonRow>
+                          <IonCol size='auto'>#</IonCol>
+                          <IonCol>Title</IonCol>
+                          <IonCol className='ion-text-end' size='auto'>Duration</IonCol>
+                        </IonRow>
+                  </IonGrid>
+                    </IonItem>
+                  {currentAlbum?.tracklist.map(track => (
+                    <IonItem key={track.position}>
+                      <IonGrid>
+                        <IonRow>
+                          <IonCol size='auto'>{track.position}</IonCol>
+                          <IonCol>{track.title}</IonCol>
+                          <IonCol className='ion-text-end' size='auto'>{track.duration}</IonCol>
+                        </IonRow>
+                      </IonGrid>
+                    </IonItem>                    
+                  ))}
+                </IonList>: null}
                 </IonCard>
               </IonCol>
-              <IonCol sizeLg='6' sizeMd='6' sizeSm='12' sizeXs='12'>
-                <IonCard>
-                  <IonList>
-                  <IonItem>Title: {currentAlbum?.title}</IonItem>
-                  <IonItem>Artist: {currentAlbum?.artist}</IonItem>
-                  <IonItem>Year: {currentAlbum?.year}</IonItem>
-                  {currentAlbum?.genre ? <IonItem>Genre: {currentAlbum?.genre.join(', ')}</IonItem>: null}
-                  <IonItem>Country: {currentAlbum?.country}</IonItem>
-                </IonList>
-                </IonCard>
-              </IonCol>
-            </IonRow>
-            <IonRow>
-                <IonCol size='12'>
-                  <IonCard>
-                    {currentAlbum?.tracklist ? <IonList>
-                      <IonItem key={-1}>
-                        <IonGrid>
-                          <IonRow>
-                            <IonCol size='auto'>#</IonCol>
-                            <IonCol>Title</IonCol>
-                            <IonCol className='ion-text-end' size='auto'>Duration</IonCol>
-                          </IonRow>
-                    </IonGrid>
-                      </IonItem>
-                    {currentAlbum?.tracklist.map(track => (
-                      <IonItem key={track.position}>
-                        <IonGrid>
-                          <IonRow>
-                            <IonCol size='auto'>{track.position}</IonCol>
-                            <IonCol>{track.title}</IonCol>
-                            <IonCol className='ion-text-end' size='auto'>{track.duration}</IonCol>
-                          </IonRow>
-                        </IonGrid>
-                      </IonItem>                    
-                    ))}
-                  </IonList>: null}
+          </IonRow>
+          <IonRow>
+            <IonCol>
+              <IonCard>
+                  <IonCardContent className='ion-text-end'>
+                    Data provided by Discogs.
+                  </IonCardContent>
                   </IonCard>
-                </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol>
-                <IonCard>
-                    <IonCardContent className='ion-text-end'>
-                      Data provided by Discogs.
-                    </IonCardContent>
-                    </IonCard>
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol>
-                {inlib ? <IonButton id='open-toast' onClick={() => removeAlbum()}>Remove</IonButton>
-                : <IonButton id='open-toast' onClick={() => addAlbum()}>Add</IonButton>}
-                <IonButton onClick={async () => await Browser.open({url: currentAlbum.uri})}>Open on Discogs</IonButton>
-              </IonCol>
-            </IonRow>
-        </IonGrid>
-        <IonToast trigger="open-toast" message={`This album was ${inlib ? 'added' : 'removed'}!`} duration={5000} position='top' buttons={[{text: 'Dismiss', role: 'cancel'}]}></IonToast>
-      </IonContent>
+            </IonCol>
+          </IonRow>
+          <IonRow>
+            <IonCol>
+              {inlib ? <IonButton id='open-toast' onClick={() => removeAlbum()}>Remove</IonButton>
+              : <IonButton id='open-toast' onClick={() => addAlbum()}>Add</IonButton>}
+              <IonButton onClick={async () => await Browser.open({url: currentAlbum.uri})}>Open on Discogs</IonButton>
+            </IonCol>
+          </IonRow>
+      </IonGrid>
+      <IonToast trigger="open-toast" message={`This album was ${inlib ? 'added' : 'removed'}!`} duration={5000} position='top' buttons={[{text: 'Dismiss', role: 'cancel'}]}></IonToast>
+    </IonContent>
   );
 };
 

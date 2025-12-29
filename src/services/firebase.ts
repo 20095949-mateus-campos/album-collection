@@ -1,10 +1,7 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
 import "firebase/compat/auth";
 
-// TODO: Replace the following with your app's Firebase project configuration
-// See: https://support.google.com/firebase/answer/7015592
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: "dbs-music-library.firebaseapp.com",
@@ -20,6 +17,3 @@ export const app = firebase.initializeApp(firebaseConfig);
 
 // Initialize Cloud Firestore and get a reference to the service
 export const db = firebase.firestore(app);
-// export const db = getFirestore(app);
-
-

@@ -2,7 +2,6 @@ import {
   IonCard,
   IonCardContent,
   IonContent,
-  IonFooter,
   IonIcon,
   IonImg,
   IonItem,
@@ -12,14 +11,14 @@ import {
   IonMenu,
   IonMenuToggle,
   IonNote,
-  IonText,
   useIonRouter,
 } from '@ionic/react';
 
 import { useLocation } from 'react-router-dom';
-import { informationCircleOutline, informationCircleSharp, informationOutline, informationSharp, musicalNotesOutline, musicalNotesSharp, personOutline, personSharp, searchOutline, searchSharp, logoGithub } from 'ionicons/icons';
+import { informationCircleOutline, informationCircleSharp, musicalNotesOutline, musicalNotesSharp, personOutline, personSharp, searchOutline, searchSharp, logoGithub } from 'ionicons/icons';
 import './Menu.css';
 import { user } from '../App';
+import { Browser } from '@capacitor/browser';
 
 interface AppPage {
   url: string;
@@ -55,20 +54,12 @@ const appPages: AppPage[] = [
   }
 ];
 
-import { menuController } from '@ionic/core';
-import { Browser } from '@capacitor/browser';
-
-
 const Menu: React.FC = () => {
   const location = useLocation();
-
-    const router = useIonRouter();
-
+  const router = useIonRouter();
 
   const handleImageClick = async () => {
-    // Custom logic here
     router.push('/', 'root');
-    
   };
 
   return (

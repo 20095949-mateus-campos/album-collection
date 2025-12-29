@@ -12,21 +12,16 @@ import {
   useIonRouter,
 } from '@ionic/react';
 
-/* React imports */
-import { useLocation } from 'react-router-dom';
-
 /* Firebase imports */
 import { app, db } from '../services/firebase'
-import { AuthCredential, EmailAuthProvider } from "firebase/auth"
+import { EmailAuthProvider } from "firebase/auth"
 
 /* Local imports */
 import { user } from '../App';
-import { useContext, useRef, useState } from 'react';
-import { UserContext } from '../contexts/UserContext';
+import { useRef, useState } from 'react';
 import { Album } from '../models/Album';
 
 interface ChildProps {
-  // We define a function that expects a string
   onMessage?: (album: Album) => void;
   album?: Album,
   setLoggedIn?: (state: boolean) => void
@@ -34,17 +29,11 @@ interface ChildProps {
 
 const UserDetails: React.FC<ChildProps> = ({setLoggedIn}) => {
   const [update, setUpdate] = useState(false)
-
   const usernameRef = useRef<HTMLIonInputElement>(null);
   const emailRef = useRef<HTMLIonInputElement>(null);
   const passwordRef = useRef<HTMLIonInputElement>(null);
-
   const router = useIonRouter()
-
-  const userLoggedIn = useContext(UserContext)
-
   const [alert] = useIonAlert()
-
   const fb = app.auth().currentUser
 
   function signOut() {

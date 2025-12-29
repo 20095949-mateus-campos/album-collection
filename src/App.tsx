@@ -1,10 +1,10 @@
 /* Ionic imports */
-import { getPlatforms, IonApp, IonContent, IonPage, IonRouterOutlet, IonSpinner, IonSplitPane, isPlatform, setupIonicReact } from '@ionic/react';
+import { IonApp, IonRouterOutlet, IonSpinner, IonSplitPane, isPlatform, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 
 /* React imports */
 import { Redirect, Route } from 'react-router-dom';
-import { useActionState, useContext, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 /* Firebase imports */
 import { app, db } from './services/firebase'
@@ -46,7 +46,6 @@ import '@ionic/react/css/palettes/dark.always.css';
 /* Theme variables */
 import './theme/variables.css';
 import { StatusBar, Style } from '@capacitor/status-bar';
-import { UserContext } from './contexts/UserContext';
 
 setupIonicReact();
 
@@ -57,7 +56,7 @@ export const user: User = {
   collection: []
 }
 
-export let currentAlbum: Album = {
+export const currentAlbum: Album = {
   id: 0,
   title: '',
   artist: '',
@@ -70,39 +69,30 @@ export let currentAlbum: Album = {
 }
 
 const App: React.FC = () => {
-  if (isPlatform('mobile')) {
     useEffect(() => {
       const init = async () => {
-        try {
-          await StatusBar.setOverlaysWebView({ overlay: false })
-          await StatusBar.setBackgroundColor({ color: '#1e1e1e' })
-          await StatusBar.setStyle({ style: Style.Dark })
-          await StatusBar.show()
-        } catch (e) {
-          console.error('Failed to update status bar: ', e)
+        if (isPlatform('mobile')) {
+          try {
+            await StatusBar.setOverlaysWebView({ overlay: false })
+            await StatusBar.setBackgroundColor({ color: '#1e1e1e' })
+            await StatusBar.setStyle({ style: Style.Dark })
+            await StatusBar.show()
+          } catch (e) {
+            console.error('Failed to update status bar: ', e)
+          }
         }
       }
       init()
     }, [])
-  }
 
   const [loggedIn, setLoggedIn] = useState<boolean | null>(null)
-  const [loading, setLoading] = useState(true)
-  
   const album = useRef({} as Album)
 
   const onMessage = async (childData: Album) => {
-    setLoading(true)
-    
     album.current = childData
-
-    setLoading(false)
   }
 
-  const userLoggedIn = useContext(UserContext);
-
   useEffect(() => {
-
     app.auth().onAuthStateChanged(async (fb) => {
       if (fb) {
         await db.collection("users").doc(fb?.uid).get()
@@ -116,61 +106,13 @@ const App: React.FC = () => {
             console.error("Error retrieving user details: ", error);
           })
         setLoggedIn(true)
-        userLoggedIn.setLog(userLoggedIn.log, true)
       } else {
-        // userLoggedIn.setLog(userLoggedIn.log, false)
         setLoggedIn(false)
       }
     })
   }, [])
 
-  let name = 'search'
-
-  
-  let test = 0
-
   return (
-    // <IonApp>
-    //   <IonReactRouter>
-    //       {loggedIn ? (
-    //         <IonSplitPane contentId="main">
-    //           <Menu />
-    //           <IonRouterOutlet id="main">
-    //             <Route exact path="/:name(collection|search)/:model(album)/:id">
-    //               {loading ? (
-    //                 <Page onMessage={onMessage} album={album.current}/>
-    //               ) : (
-    //                 <Page onMessage={onMessage} album={album.current}/>
-    //               )}
-    //             </Route>
-    //             <Route exact path="/:name(collection|search|account|about)">
-    //               <Page onMessage={onMessage} setLoggedIn={setLoggedIn} />
-    //             </Route>
-    //             <Route>
-    //               <Redirect to="/collection" />
-    //             </Route>
-    //             {/* <Route exact path="/">
-    //               <Redirect to="/collection" />
-    //             </Route> */}
-    //             {/* <Route exact path="/collection"> */}
-    //               {/* {() => { return <p>collection</p> }} */}
-    //               {/* <Page onMessage={onMessage} /> */}
-    //             {/* </Route> */}
-    //           </IonRouterOutlet>
-    //         </IonSplitPane>
-    //       ) : (
-    //         <IonRouterOutlet id="main">
-    //           <Route exact path="/sign-in">
-    //             <SignIn setLoggedIn={setLoggedIn} />
-    //           </Route>
-    //           <Route>
-    //             {loggedIn === null ? (<IonSpinner></IonSpinner>):(<Redirect to={loggedIn ? "/collection" : "/sign-in"} />)}
-    //           </Route>
-    //         </IonRouterOutlet>
-    //       )}
-    //   </IonReactRouter>
-    // </IonApp>
-
     <IonApp>
       <IonReactRouter>
         {loggedIn === null ? (

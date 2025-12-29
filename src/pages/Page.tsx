@@ -2,8 +2,7 @@ import { IonBackButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonPag
 import { useLocation, useParams } from 'react-router';
 import './Page.css';
 import AlbumList from '../components/AlbumList';
-import { useEffect, useState } from 'react';
-import Menu from '../components/Menu';
+import { useState } from 'react';
 import SearchForm from '../components/SearchForm';
 import UserDetails from '../components/UserDetails';
 import AlbumDetails from '../components/AlbumDetails';
@@ -12,25 +11,15 @@ import { Album } from '../models/Album';
 import About from '../components/About';
 
 interface ChildProps {
-  // We define a function that expects a string
   onMessage?: (album: Album) => void;
   album?: Album,
   setLoggedIn?: (state: boolean) => void
 }
 
 const Page: React.FC<ChildProps> = ({onMessage, album, setLoggedIn}) => {
-  // const [album, setAlbum] = useState({} as Album)
-
-  const handleData = (childData: Album) => {
-    onMessage!(childData)
-  };
-
   const location = useLocation();
-
   const { name, model, id } = useParams<{ name: string, model?: string, id?: string }>();
-  
   const [content, setContent] = useState<any>(null)
-
 
   useIonViewWillEnter(() => {
     if (location.pathname == '/collection')
@@ -42,9 +31,7 @@ const Page: React.FC<ChildProps> = ({onMessage, album, setLoggedIn}) => {
     else if (location.pathname == '/account')
       setContent(<UserDetails setLoggedIn={setLoggedIn} />)
     else if (location.pathname == '/about')
-      setContent(<About />)
-
- 
+      setContent(<About />) 
   })
 
   return (
