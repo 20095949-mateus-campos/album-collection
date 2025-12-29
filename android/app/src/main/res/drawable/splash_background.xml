@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Layer 0: The Background Color -->
+    <item android:drawable="@color/splash_bg" />
+
+    <!-- Layer 1: Your Logo (@drawable/splash) centered -->
+    <item>
+        <bitmap
+            android:gravity="center"
+            android:src="@drawable/splash_dark_image" />
+    </item>
+</layer-list>

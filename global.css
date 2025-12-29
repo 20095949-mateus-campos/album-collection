@@ -1,0 +1,27 @@
+/* Forces Ionic components to respect the status bar height */
+ion-header {
+  padding-top: var(--ion-safe-area-top);
+}
+
+/* Ensure the main content also respects the safe area if not using a header */
+ion-content {
+  --padding-top: var(--ion-safe-area-top);
+}
+
+.spinner-wrapper {
+  display: grid;
+  place-items: center;
+  height: 100%; /* Fills parent height */
+  width: 100%;  /* Fills parent width */
+}
+
+ion-spinner {
+  /* Using 'vmin' ensures it scales based on the smallest screen dimension */
+  /* 10vmin = 10% of the viewport width (mobile) or height (desktop) */
+  width: 15vmin; 
+  height: 15vmin;
+  
+  /* Optional: Set min/max to prevent it getting too tiny or massive */
+  min-width: 40px;
+  max-width: 120px;
+}

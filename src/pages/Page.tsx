@@ -1,11 +1,51 @@
-import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import { useParams } from 'react-router';
-import ExploreContainer from '../components/ExploreContainer';
+import { IonBackButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, useIonViewWillEnter } from '@ionic/react';
+import { useLocation, useParams } from 'react-router';
 import './Page.css';
+import AlbumList from '../components/AlbumList';
+import { useEffect, useState } from 'react';
+import Menu from '../components/Menu';
+import SearchForm from '../components/SearchForm';
+import UserDetails from '../components/UserDetails';
+import AlbumDetails from '../components/AlbumDetails';
+import { user } from '../App';
+import { Album } from '../models/Album';
+import About from '../components/About';
 
-const Page: React.FC = () => {
+interface ChildProps {
+  // We define a function that expects a string
+  onMessage?: (album: Album) => void;
+  album?: Album,
+  setLoggedIn?: (state: boolean) => void
+}
 
-  const { name } = useParams<{ name: string; }>();
+const Page: React.FC<ChildProps> = ({onMessage, album, setLoggedIn}) => {
+  // const [album, setAlbum] = useState({} as Album)
+
+  const handleData = (childData: Album) => {
+    onMessage!(childData)
+  };
+
+  const location = useLocation();
+
+  const { name, model, id } = useParams<{ name: string, model?: string, id?: string }>();
+  
+  const [content, setContent] = useState<any>(null)
+
+
+  useIonViewWillEnter(() => {
+    if (location.pathname == '/collection')
+      setContent(<AlbumList onMessage={onMessage} albums={user.collection}/>)
+    else if (location.pathname == `/${name}/${model}/${id}`)
+      setContent(<AlbumDetails album={album}/>)
+    else if (location.pathname == '/search')
+      setContent(<SearchForm onMessage={onMessage} />)
+    else if (location.pathname == '/account')
+      setContent(<UserDetails setLoggedIn={setLoggedIn} />)
+    else if (location.pathname == '/about')
+      setContent(<About />)
+
+ 
+  })
 
   return (
     <IonPage>
@@ -13,18 +53,20 @@ const Page: React.FC = () => {
         <IonToolbar>
           <IonButtons slot="start">
             <IonMenuButton />
+            {model ? <IonBackButton defaultHref={`/${name}`}></IonBackButton> : null}
           </IonButtons>
-          <IonTitle>{name}</IonTitle>
+          {model ? <IonTitle>{model[0].toUpperCase() + model.slice(1) + ' Details'}</IonTitle> : <IonTitle>{name[0].toUpperCase() + name.slice(1)}</IonTitle>}
         </IonToolbar>
       </IonHeader>
 
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">{name}</IonTitle>
+            {model ? <IonTitle>{model[0].toUpperCase() + model.slice(1) + ' Details'}</IonTitle> : <IonTitle>{name[0].toUpperCase() + name.slice(1)}</IonTitle>}
           </IonToolbar>
         </IonHeader>
-        <ExploreContainer name={name} />
+
+        {content}
       </IonContent>
     </IonPage>
   );

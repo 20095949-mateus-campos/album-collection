@@ -1,6 +1,8 @@
 import {
   IonContent,
+  IonFooter,
   IonIcon,
+  IonImg,
   IonItem,
   IonLabel,
   IonList,
@@ -8,11 +10,14 @@ import {
   IonMenu,
   IonMenuToggle,
   IonNote,
+  IonText,
+  useIonRouter,
 } from '@ionic/react';
 
 import { useLocation } from 'react-router-dom';
-import { archiveOutline, archiveSharp, bookmarkOutline, heartOutline, heartSharp, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, trashOutline, trashSharp, warningOutline, warningSharp } from 'ionicons/icons';
+import { informationCircleOutline, informationCircleSharp, informationOutline, informationSharp, musicalNotesOutline, musicalNotesSharp, personOutline, personSharp, searchOutline, searchSharp } from 'ionicons/icons';
 import './Menu.css';
+import { user } from '../App';
 
 interface AppPage {
   url: string;
@@ -23,74 +28,66 @@ interface AppPage {
 
 const appPages: AppPage[] = [
   {
-    title: 'Inbox',
-    url: '/folder/Inbox',
-    iosIcon: mailOutline,
-    mdIcon: mailSharp
+    title: 'Collection',
+    url: '/collection',
+    iosIcon: musicalNotesOutline,
+    mdIcon: musicalNotesSharp
   },
   {
-    title: 'Outbox',
-    url: '/folder/Outbox',
-    iosIcon: paperPlaneOutline,
-    mdIcon: paperPlaneSharp
+    title: 'Search',
+    url: '/search',
+    iosIcon: searchOutline,
+    mdIcon: searchSharp
   },
   {
-    title: 'Favorites',
-    url: '/folder/Favorites',
-    iosIcon: heartOutline,
-    mdIcon: heartSharp
+    title: 'Account',
+    url: '/account',
+    iosIcon: personOutline,
+    mdIcon: personSharp
   },
   {
-    title: 'Archived',
-    url: '/folder/Archived',
-    iosIcon: archiveOutline,
-    mdIcon: archiveSharp
-  },
-  {
-    title: 'Trash',
-    url: '/folder/Trash',
-    iosIcon: trashOutline,
-    mdIcon: trashSharp
-  },
-  {
-    title: 'Spam',
-    url: '/folder/Spam',
-    iosIcon: warningOutline,
-    mdIcon: warningSharp
+    title: 'About',
+    url: '/about',
+    iosIcon: informationCircleOutline,
+    mdIcon: informationCircleSharp
   }
 ];
 
-const labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
+import { menuController } from '@ionic/core';
+
 
 const Menu: React.FC = () => {
   const location = useLocation();
+
+    const router = useIonRouter();
+
+
+  const handleImageClick = async () => {
+    // Custom logic here
+    router.push('/', 'root');
+    
+  };
 
   return (
     <IonMenu contentId="main" type="overlay">
       <IonContent>
         <IonList id="inbox-list">
-          <IonListHeader>Inbox</IonListHeader>
-          <IonNote>hi@ionicframework.com</IonNote>
+          <IonMenuToggle key={-1} autoHide={false}>
+            <IonImg className='menu-logo' src='/menu_logo.png' onClick={handleImageClick}></IonImg>
+          </IonMenuToggle>
+          <br></br>
+          <IonListHeader>Album Collection</IonListHeader>
+          <IonNote>{user.username}</IonNote>
           {appPages.map((appPage, index) => {
             return (
               <IonMenuToggle key={index} autoHide={false}>
                 <IonItem className={location.pathname === appPage.url ? 'selected' : ''} routerLink={appPage.url} routerDirection="none" lines="none" detail={false}>
-                  <IonIcon aria-hidden="true" slot="start" ios={appPage.iosIcon} md={appPage.mdIcon} />
+                  <IonIcon slot="start" ios={appPage.iosIcon} md={appPage.mdIcon} />
                   <IonLabel>{appPage.title}</IonLabel>
                 </IonItem>
               </IonMenuToggle>
             );
           })}
-        </IonList>
-
-        <IonList id="labels-list">
-          <IonListHeader>Labels</IonListHeader>
-          {labels.map((label, index) => (
-            <IonItem lines="none" key={index}>
-              <IonIcon aria-hidden="true" slot="start" icon={bookmarkOutline} />
-              <IonLabel>{label}</IonLabel>
-            </IonItem>
-          ))}
         </IonList>
       </IonContent>
     </IonMenu>

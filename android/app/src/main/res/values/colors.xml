@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Custom splash background color -->
+    <color name="splash_bg">#1E1E1E</color>
+
+    <!-- Custom status bar background color -->
+    <color name="status_bar">#1E1E1E</color>
+
+    <!-- Standard Android color names -->
+    <color name="colorPrimary">#1E1E1E</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#1E1E1E</color>
+</resources>

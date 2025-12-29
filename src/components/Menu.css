@@ -111,3 +111,10 @@ ion-note {
 ion-item.selected {
   --color: var(--ion-color-primary);
 } 
+
+.menu-logo {
+  width: 25%;
+  height: auto;
+  margin: 0 auto; /* Centers the image if container is larger */
+  display: block;
+}
