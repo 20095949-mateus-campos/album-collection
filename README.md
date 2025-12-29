@@ -92,26 +92,23 @@ The following are some screenshots of the application in use, showcasing core op
 | :-: | :-: |
 | *About* | *Menu* |
 
-## Part 5: Technology Stack and External Resources
+## Part 5: References
 
-Below is a table listing the technologies and the external resources used in this assignment:
+Below is a list of the documentation referenced during this assignment:
 
-|Technology Stack|External Resources|
-| :-: | :-: |
-|||
+- **[Ionic Docs](https://ionicframework.com/docs/)**
+- **[Capacitor Docs](https://capacitorjs.com/docs/)**
+- **[React Docs](https://react.dev/)**
+- **[MDN Docs](https://developer.mozilla.org/en-US/)**
+- **[Firebase Docs](https://firebase.google.com/docs)**
+- **[Discogs API Docs](https://www.discogs.com/developers?srsltid=AfmBOoqUVtHJ2uViKT03lDshVKV-QBpwyOlm1cwf_lqttUpjfYo1YhSP)**
+- **[SVG Repo](https://www.svgrepo.com/)**
 
-## Part 6: References
+## Part 6: Copyright Disclaimer
 
-Below is the list of references used in this assignment:
+This application uses Discogs' API but is not affiliated with, sponsored or endorsed by Discogs. 'Discogs' is a trademark of Zink Media, LLC ([Terms of Use](https://support.discogs.com/hc/en-us/articles/360009334593-API-Terms-of-Use)).
 
-- **[]()**
-    - []()
-
-## Part 7: Copyright Disclaimer
-
-Discogs...
-
-SVG Repo...
+Application logo ['Audio Melody Music 33 SVG Vector'](https://www.svgrepo.com/svg/419725/audio-melody-music-33) by [Ruslan Mullakaev](https://dribbble.com/ruslan_design?ref=svgrepo.com), under [CC Attribution License](https://creativecommons.org/share-your-work/cclicenses/), via [SVG Repo](https://www.svgrepo.com/). The original logo's colors were altered to match the dark theme of the application.
 
 This project may feature content that is copyright protected. Please, keep in mind that this is a student's project and has no commercial purpose whatsoever. Having said that, if you are the owner of any content featured here and would like for it to be removed, please, contact me and I will do so promptly.
 
