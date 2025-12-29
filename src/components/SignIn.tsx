@@ -20,6 +20,7 @@ import {
   IonNote,
   IonRow,
   IonSearchbar,
+  IonText,
   useIonAlert,
   useIonRouter,
 } from '@ionic/react';
@@ -104,6 +105,12 @@ const SignIn: React.FC<ChildProps> = ({setLoggedIn}) => {
 
   return (
             <IonContent>
+              <IonCard>
+                <IonCardHeader>
+                  <IonCardTitle>Sign In</IonCardTitle>
+                  <IonCardSubtitle>If you don't already have an account, sign up instead.</IonCardSubtitle>
+                </IonCardHeader>
+              </IonCard>
               <IonCard>
               <IonList>
                 <IonItem>
