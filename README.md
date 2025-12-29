@@ -63,7 +63,50 @@ The following flowchart presents a basic overview of the application's core oper
 
 ## Part 3: Setup
 
+In order to run this project locally, there are a few environment configuration steps that need to be taken.
 
+Install Node.js on Linux (refer to Node.js' [official guide](https://nodejs.org/en/download/) for alternatives):
+
+```
+# Download and install nvm:
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash && \
+
+# in lieu of restarting the shell
+\. "$HOME/.nvm/nvm.sh" && \
+
+# Download and install Node.js:
+nvm install 24 && \
+
+# Verify the Node.js version:
+node -v && \ # Should print "v24.12.0".
+
+# Verify npm version:
+npm -v # Should print "11.6.2".
+```
+
+Install the Ionic CLI ([official guide](https://ionicframework.com/docs/intro/cli)):
+
+```
+npm install -g @ionic/cli
+```
+
+You may then clone this repository to your preferred location, install all project dependencies and run the application:
+
+```
+git clone https://github.com/20095949-mateus-campos/album-collection.git && \
+cd album-collection && \
+npm install && \
+ionic serve
+```
+
+The above will run the web version of the application only, for the mobile version you must install [Android Studio](https://developer.android.com/studio) and then run:
+
+```
+npm install @capacitor/android && \ # install Android package for Capacitor
+npx cap add android && \ # android to the project
+npx cap open android && \ # open it on Android Studio
+npx cap run android # run the app; the target device (USB-connected or an emulator) can be selected on Android Studio
+```
 
 ## Part 4: Proof of Concept
 
