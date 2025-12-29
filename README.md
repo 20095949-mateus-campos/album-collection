@@ -16,6 +16,8 @@
 
 This repository contains an "Album Collection Hybrid Mobile Application" developed for my Web and Mobile Technologies CA 1 at Dublin Business School - MSc in Information Systems with Computing, Year 1, Semester 1.
 
+**[Download the Android prototype](https://github.com/20095949-mateus-campos/album-collection/releases/download/v0.1.0-prototype/album-collection-v0.1.0-prototype.apk)**
+
 ## Part 1: Background
 
 The goal of this assignment was to develop a hybrid mobile application for a business of my choice. The application should be built using several familiar web technologies such as HTML5, CSS and Javascript and then seamlessly deployed to platforms such as iOS, Android, and Windows Phone (at least one). It should be touch friendly and provide actual functionality which users can take advantage of. Use of UI frameworks such as jQuery Mobile, Sencha Touch, Kendo UI, or any other platforms discussed in the module, was allowed.
