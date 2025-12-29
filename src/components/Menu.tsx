@@ -1,4 +1,6 @@
 import {
+  IonCard,
+  IonCardContent,
   IonContent,
   IonFooter,
   IonIcon,
@@ -15,7 +17,7 @@ import {
 } from '@ionic/react';
 
 import { useLocation } from 'react-router-dom';
-import { informationCircleOutline, informationCircleSharp, informationOutline, informationSharp, musicalNotesOutline, musicalNotesSharp, personOutline, personSharp, searchOutline, searchSharp } from 'ionicons/icons';
+import { informationCircleOutline, informationCircleSharp, informationOutline, informationSharp, musicalNotesOutline, musicalNotesSharp, personOutline, personSharp, searchOutline, searchSharp, logoGithub } from 'ionicons/icons';
 import './Menu.css';
 import { user } from '../App';
 
@@ -54,6 +56,7 @@ const appPages: AppPage[] = [
 ];
 
 import { menuController } from '@ionic/core';
+import { Browser } from '@capacitor/browser';
 
 
 const Menu: React.FC = () => {
@@ -89,6 +92,12 @@ const Menu: React.FC = () => {
             );
           })}
         </IonList>
+        <IonCard onClick={async () => await Browser.open({url: 'https://github.com/20095949-mateus-campos/album-collection'})}>
+          <IonCardContent>
+            <p>Album Collection <IonIcon slot='start' ios={logoGithub} md={logoGithub}></IonIcon> by Mateus Campos</p>
+            <p>Dublin Business School, Dublin, Ireland, 2025</p>
+          </IonCardContent>
+        </IonCard>
       </IonContent>
     </IonMenu>
   );
