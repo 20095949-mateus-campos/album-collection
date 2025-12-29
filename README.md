@@ -69,7 +69,14 @@ The following flowchart presents a basic overview of the application's core oper
 
 Following the plan established in the previous section, a prototype was developed. Being only a proof of concept, the application has, as of now, limited functionalities. Extra features would have included: artist tracking, song tracking, multiple data sources (AllMusic, Last.fm, MusicBrainz, Rate Your Music, etc.), in-app user communication (messaging, sharing, tagging, etc.), integration with music streaming services (Spotify, Apple Music, Amazon Music, Tidal, Deezer, YouTube Music, etc.), user-level manual addition/editing (for content that may be unavailable/incorrect from data sources), among others.
 
-The below is a breakdown of the project’s file structure:
+The below is a list of the native Capacitor plugins used by the app:
+
+- **@capacitor/browser:** opens the device's default browser inside the app.
+- **@capacitor/splash-screen:** creates a splash screen for when the app is open.
+- **@capacitor/status-bar:** allows for in-code styling of the device's status bar.
+- **@capacitor/toast:** displays a dismissible toast notification.
+
+The below is a breakdown of the project’s file structure (auto-generated files have been omitted):
 
 ```
 .
