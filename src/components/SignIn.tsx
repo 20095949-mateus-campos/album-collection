@@ -19,7 +19,7 @@ import { user } from '../App';
 import { useRef } from 'react';
 
 interface ChildProps {
-  onMessage?: (album: Album) => void;
+  onSelectAlbum?: (album: Album) => void;
   album?: Album,
   setLoggedIn?: (state: boolean | null) => void
 }

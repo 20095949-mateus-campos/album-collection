@@ -11,23 +11,24 @@ import { Album } from '../models/Album';
 import About from '../components/About';
 
 interface ChildProps {
-  onMessage?: (album: Album) => void;
+  onSelectAlbum?: (album: Album) => void;
   album?: Album,
   setLoggedIn?: (state: boolean) => void
 }
 
-const Page: React.FC<ChildProps> = ({onMessage, album, setLoggedIn}) => {
+const Page: React.FC<ChildProps> = ({onSelectAlbum, album, setLoggedIn}) => {
   const location = useLocation();
   const { name, model, id } = useParams<{ name: string, model?: string, id?: string }>();
   const [content, setContent] = useState<any>(null)
 
+  // render different component depending on routing
   useIonViewWillEnter(() => {
     if (location.pathname == '/collection')
-      setContent(<AlbumList onMessage={onMessage} albums={user.collection}/>)
+      setContent(<AlbumList onSelectAlbum={onSelectAlbum} albums={user.collection}/>)
     else if (location.pathname == `/${name}/${model}/${id}`)
       setContent(<AlbumDetails album={album}/>)
     else if (location.pathname == '/search')
-      setContent(<SearchForm onMessage={onMessage} />)
+      setContent(<SearchForm onSelectAlbum={onSelectAlbum} />)
     else if (location.pathname == '/account')
       setContent(<UserDetails setLoggedIn={setLoggedIn} />)
     else if (location.pathname == '/about')

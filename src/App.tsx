@@ -45,10 +45,13 @@ import '@ionic/react/css/palettes/dark.always.css';
 
 /* Theme variables */
 import './theme/variables.css';
+
+/* Capacitor plugins */
 import { StatusBar, Style } from '@capacitor/status-bar';
 
 setupIonicReact();
 
+// user instance to be used as a singleton accross the app
 export const user: User = {
   id: '',
   username: '',
@@ -56,6 +59,7 @@ export const user: User = {
   collection: []
 }
 
+// album instance to be used as a singleton accross the app
 export const currentAlbum: Album = {
   id: 0,
   title: '',
@@ -69,29 +73,32 @@ export const currentAlbum: Album = {
 }
 
 const App: React.FC = () => {
-    useEffect(() => {
-      const init = async () => {
-        if (isPlatform('mobile')) {
-          try {
-            await StatusBar.setOverlaysWebView({ overlay: false })
-            await StatusBar.setBackgroundColor({ color: '#1e1e1e' })
-            await StatusBar.setStyle({ style: Style.Dark })
-            await StatusBar.show()
-          } catch (e) {
-            console.error('Failed to update status bar: ', e)
-          }
+  // control the status bar if running on mobile
+  useEffect(() => {
+    const init = async () => {
+      if (isPlatform('mobile')) {
+        try {
+          await StatusBar.setOverlaysWebView({ overlay: false })
+          await StatusBar.setBackgroundColor({ color: '#1e1e1e' })
+          await StatusBar.setStyle({ style: Style.Dark })
+          await StatusBar.show()
+        } catch (e) {
+          console.error('Failed to update status bar: ', e)
         }
       }
-      init()
-    }, [])
+    }
+    init()
+  }, [])
 
   const [loggedIn, setLoggedIn] = useState<boolean | null>(null)
   const album = useRef({} as Album)
 
-  const onMessage = async (childData: Album) => {
+  // selected album to be detailed (lifted up from child)
+  const onSelectAlbum = async (childData: Album) => {
     album.current = childData
   }
 
+  // checks if user is logged in
   useEffect(() => {
     app.auth().onAuthStateChanged(async (fb) => {
       if (fb) {
@@ -125,10 +132,10 @@ const App: React.FC = () => {
               <Menu />
               <IonRouterOutlet id='main'>
                 <Route exact path="/:name(collection|search)/:model(album)/:id">
-                  <Page onMessage={onMessage} album={album.current}/>
+                  <Page onSelectAlbum={onSelectAlbum} album={album.current}/>
                 </Route>
                 <Route exact path="/:name(collection|search|account|about)">
-                  <Page onMessage={onMessage} setLoggedIn={setLoggedIn} />
+                  <Page onSelectAlbum={onSelectAlbum} setLoggedIn={setLoggedIn} />
                 </Route>
                 <Redirect exact from="/:name(sign-in)?" to="/collection" />
               </IonRouterOutlet>

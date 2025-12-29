@@ -23,12 +23,12 @@ import { Album } from '../models/Album';
 import { db } from '../services/firebase';
 
 interface ChildProps {
-  onMessage?: (album: Album) => void;
+  onSelectAlbum?: (album: Album) => void;
   albums?: Album[],
   unmountMe?: () => void
 }
 
-const AlbumList: React.FC<ChildProps> = ({onMessage, albums, unmountMe}) => {
+const AlbumList: React.FC<ChildProps> = ({onSelectAlbum, albums, unmountMe}) => {
   const location = useLocation();
   const [display, setDisplay] = useState(albums)
   const router = useIonRouter();
@@ -77,7 +77,7 @@ const AlbumList: React.FC<ChildProps> = ({onMessage, albums, unmountMe}) => {
                 {display.map(album => (
                     <IonCol key={album.id} sizeLg='3' sizeMd='3' sizeSm='6' sizeXs='6'>
                         <IonCard routerDirection='none' routerLink={`${location.pathname}/album/${album.id}`} onClick={() => {
-                          onMessage!(album)
+                          onSelectAlbum!(album)
                           Object.assign(currentAlbum, album)
                           }}>
                             <IonImg src={album.coverUrl}></IonImg>

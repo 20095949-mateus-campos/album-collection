@@ -22,7 +22,7 @@ import { useRef, useState } from 'react';
 import { Album } from '../models/Album';
 
 interface ChildProps {
-  onMessage?: (album: Album) => void;
+  onSelectAlbum?: (album: Album) => void;
   album?: Album,
   setLoggedIn?: (state: boolean) => void
 }

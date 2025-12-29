@@ -14,11 +14,11 @@ import AlbumList from './AlbumList';
 import { Album } from '../models/Album';
 
 interface ChildProps {
-  onMessage?: (album: Album) => void;
+  onSelectAlbum?: (album: Album) => void;
   albums?: Album[]
 }
 
-const SearchForm: React.FC<ChildProps> = ({onMessage}) => {
+const SearchForm: React.FC<ChildProps> = ({onSelectAlbum}) => {
   const [data, setData] = useState<any[] | null>(null)
   const titleRef = useRef<HTMLIonInputElement>(null);
   const artistRef = useRef<HTMLIonInputElement>(null);
@@ -82,8 +82,8 @@ const SearchForm: React.FC<ChildProps> = ({onMessage}) => {
   return (
     <IonContent>
       {data ? 
-        <AlbumList unmountMe={unMount} onMessage={(childData: Album) => {
-          onMessage!(childData)
+        <AlbumList unmountMe={unMount} onSelectAlbum={(childData: Album) => {
+          onSelectAlbum!(childData)
         }} albums={data}/>
         :
         <IonCard>
